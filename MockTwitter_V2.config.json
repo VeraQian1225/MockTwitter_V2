@@ -1,0 +1,18 @@
+{
+  "nats_addr": "nats://back.foundation.01.gogoexpress.co.nz:4222",
+  "consul_addr":"",
+  "hc_load_critical_threshold":"30",
+  "hc_load_warning_threshold":"20",
+  "hc_memory_critical_threshold":"5",
+  "hc_memory_warning_threshold":"10",
+  "hc_cpu_critical_threshold":"5",
+  "hc_cpu_warning_threshold":"10",
+  "hc_script":"gghc",
+  "hc_deregister_critical_service_after":"10s",
+  "hc_interval":"10s",
+  "db_userDB_username":"MainA",
+  "db_userDB_password":"Vera1225",
+  "db_userDB_name":"Trial1",
+  "db_userDB_dialect":"mysql",
+  "db_userDBAddress":"mydatabase.cmnihacpohfv.ap-southeast-2.rds.amazonaws.com"
+}
