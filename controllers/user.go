@@ -1,14 +1,13 @@
 package user
 
 import (
-	"errors"
 	"fmt"
+	"errors"
 	"github.com/nzgogo/micro/codec"
 	"github.com/nzgogo/micro/router"
 	"MockTwitter_V2/srv"
 	"MockTwitter_V2/services"
 	"github.com/jinzhu/gorm"
-
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
@@ -22,7 +21,7 @@ const (
 
 /****************************** Login and Registration Process ******************************/
 
-// Create an user record. message should contain at least "phoneNumber", "password", "username"
+// Return all the posts
 func Show(msg *codec.Message, reply string) *router.Error {
 	userid, err := services.CreateUser(msg.GetAll())
 	if err != nil {
@@ -44,7 +43,7 @@ func Show(msg *codec.Message, reply string) *router.Error {
 	return nil
 }
 
-// Create an user record. message should contain at least "phoneNumber", "password", "username"
+// Create an user record. message should contain at least "Username", "Email", "Password"
 func CreateUser(msg *codec.Message, reply string) *router.Error {
 	userid, err := services.CreateUser(msg.GetAll())
 	if err != nil {
@@ -66,7 +65,7 @@ func CreateUser(msg *codec.Message, reply string) *router.Error {
 	return nil
 }
 
-// Verify user's received verification code
+// Create an Post record. message should contain at least "Postmsg", "UserRefer"
 func Post(msg *codec.Message, reply string) *router.Error {
 	var phoneNum string
 	var vCode string
@@ -78,30 +77,30 @@ func Post(msg *codec.Message, reply string) *router.Error {
 	if !ok {
 		return srv.ErrorCode(srv.ErrInvalidJson)
 	}
-
-	err := services.CheckVerificationCode(phoneNum, vCode)
-	if err != nil {
-		return srv.ErrorCode(err)
-	}
-
-	body := make(map[string]string)
-	var resp *codec.Message
-
-	if userid, exist := services.CheckUserExistByPhoneNumber(phoneNum); exist {
-		token, err := requestAccessToken(msg, userid)
-		if err != nil {
-			return srv.ErrorCode(err)
-		}
-		resp = codec.NewJsonResponse(msg.ContextID, 201, token)
-	} else {
-		body[srv.JK_MESSAGE] = USER_NOT_EXSIT
-		resp = codec.NewJsonResponse(msg.ContextID, 201, body)
-	}
-
-	err = srv.Service.Respond(resp, reply)
-	if err != nil {
-		return srv.ErrorCode(err)
-	}
+	println(phoneNum, vCode)
+	//err := services.CheckVerificationCode(phoneNum, vCode)
+	//if err != nil {
+	//	return srv.ErrorCode(err)
+	//}
+	//
+	//body := make(map[string]string)
+	//var resp *codec.Message
+	//
+	////if userid, exist := services.CheckUserExistByPhoneNumber(phoneNum); exist {
+	//	token, err := requestAccessToken(msg, userid)
+	//	if err != nil {
+	//		return srv.ErrorCode(err)
+	//	}
+	//	resp = codec.NewJsonResponse(msg.ContextID, 201, token)
+	//} else {
+	//	body[srv.JK_MESSAGE] = USER_NOT_EXSIT
+	//	resp = codec.NewJsonResponse(msg.ContextID, 201, body)
+	//}
+	//
+	//err = srv.Service.Respond(resp, reply)
+	//if err != nil {
+	//	return srv.ErrorCode(err)
+	//}
 	return nil
 }
 

@@ -21,9 +21,9 @@ const (
 
 // json key/value in transport message
 const (
+	JK_LOGIN_USERNAME = "username"
+	JK_LOGIN_EMAIL    = "email"
 	JK_LOGIN_PASSWORD = "password"
-	JK_LOGIN_PHONE    = "phoneNumber"
-	JK_VERIFY_CODE    = "verificationCode"
 	JK_ACCESS_TOKEN   = "token"
 	JK_USER_ID        = "userID"
 	JK_MESSAGE        = "message"
